@@ -40,7 +40,7 @@ namespace Ecom.Services.ProductServcies.Service
                 product.id = insert;
                 var data = JsonSerializer.Serialize(product);
                 var content = new StringContent(data, Encoding.UTF8, "application/json");
-                string url = "https://localhost:7269/api/Product";
+                string url = "https://localhost:7079/apigateway/orders/products";
                 HttpResponseMessage response = await client.PostAsync(url, content);
                 if (response.IsSuccessStatusCode)
                 {
