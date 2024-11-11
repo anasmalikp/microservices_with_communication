@@ -1,7 +1,6 @@
-
 # Microservices Project
 
-This project is built using a Microservices Architecture to manage product and order-related services independently. It enables both asynchronous and synchronous communication between services, providing flexibility and efficiency in operations.
+This project is built using a Microservices Architecture to manage product and order-related services independently. It enables asynchronous communication between services, providing flexibility and efficiency in operations.
 
 ## Modules
 
@@ -19,26 +18,23 @@ The **Order Services** module manages the logic behind ordering products. This m
 
 ## Communication Between Services
 
-The project utilizes two types of communication between services:
-
-- **Asynchronous Communication**: Implemented via **Kafka** to decouple services and allow non-blocking message-based communication. This is used for scenarios where real-time response isn’t necessary, and events can be processed in the background.
-- **Synchronous Communication**: Implemented using **API calls** between services. This is used when immediate responses are needed, ensuring real-time interaction between services.
+The project uses **Asynchronous Communication** for interactions between services, implemented via **Kafka**. This enables non-blocking, event-driven communication, where messages are exchanged without requiring an immediate response, decoupling services and allowing for background processing of tasks.
 
 ## API Gateway
 
-An **API Gateway** has been implemented using **Ocelot** to provide a single entry point for all incoming requests. 
+An **API Gateway** has been implemented using **Ocelot** to provide a single entry point for all incoming requests, routing them to the appropriate services.
 
 ## Technologies Used
 
 - **SQL Server**: Used as the relational database for storing product and order data.
 - **Dapper**: Lightweight ORM for handling database connections and operations in a fast and efficient manner.
-- **Kafka**: Serves as the message broker for asynchronous communication between services. It allows for reliable, decoupled message-based data exchanges.
+- **Kafka**: Serves as the message broker for asynchronous communication between services, allowing reliable, decoupled, message-based data exchanges.
 - **Docker**: Used to set up and manage the server environment, particularly for the Kafka message broker, ensuring a consistent environment across different development and deployment stages.
 - **Ocelot**: Used as the API Gateway to aggregate and route requests to the respective microservices.
 
 ## Architecture Overview
 
-The project is divided into modular services, each responsible for a specific business domain. Communication between these services is handled via Kafka for asynchronous tasks and API calls for synchronous tasks, enabling flexibility and scalability.
+The project is divided into modular services, each responsible for a specific business domain. All communication between services is managed asynchronously using Kafka, enabling flexibility, scalability, and resilience.
 
 Each service operates independently, leveraging the benefits of microservices, such as:
 
