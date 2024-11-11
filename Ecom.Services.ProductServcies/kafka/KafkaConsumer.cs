@@ -2,12 +2,7 @@
 using Dapper;
 using Ecom.Data.Models.Models;
 using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Configuration;
 using System.Data;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using Newtonsoft.Json;
 
 namespace Ecom.Services.ProductServcies.kafka

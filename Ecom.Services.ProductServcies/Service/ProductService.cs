@@ -1,23 +1,23 @@
-﻿using Dapper;
+﻿using Confluent.Kafka;
+using Dapper;
 using Ecom.Data.Models.Models;
 using Ecom.Services.ProductServcies.Interfaces;
+using Ecom.Services.ProductServcies.kafka;
 using Microsoft.Data.SqlClient;
-using System.Collections;
+using Newtonsoft.Json;
 using System.Data;
-using System.Text;
-using System.Text.Json;
 
 namespace Ecom.Services.ProductServcies.Service
 {
     public class ProductService:IProductService
     {
         private readonly IDbConnection connection;
-        private readonly HttpClient client;
+        private readonly IKafkaPublisher publisher;
 
-        public ProductService(IConfiguration config, HttpClient client)
+        public ProductService(IConfiguration config, IKafkaPublisher publisher)
         {
             connection = new SqlConnection(config.GetConnectionString("DefaultConnection"));
-            this.client = client;
+            this.publisher = publisher;
         }
 
         public async Task<IEnumerable<Products>> GetAllProducts()
@@ -38,14 +38,12 @@ namespace Ecom.Services.ProductServcies.Service
             if(insert>0)
             {
                 product.id = insert;
-                var data = JsonSerializer.Serialize(product);
-                var content = new StringContent(data, Encoding.UTF8, "application/json");
-                string url = "https://localhost:7079/apigateway/orders/products";
-                HttpResponseMessage response = await client.PostAsync(url, content);
-                if (response.IsSuccessStatusCode)
+                await publisher.ProduceAsync("product-topic", new Message<string, string>
                 {
-                    return true;
-                }
+                    Key = insert.ToString(),
+                    Value = JsonConvert.SerializeObject(product)
+                });
+                return true;
             }
             return false;
         }

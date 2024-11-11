@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddHostedService<KafkaConsumer>();
-builder.Services.AddHttpClient<ProductService>();
+builder.Services.AddScoped<IKafkaPublisher, KafkaPublisher>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

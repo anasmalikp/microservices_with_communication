@@ -1,3 +1,4 @@
+using Ecom.Services.OrderServices.Consumers;
 using Ecom.Services.OrderServices.Interfaces;
 using Ecom.Services.OrderServices.kafka;
 using Ecom.Services.OrderServices.Service;
@@ -9,7 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IKafkaProducer, KafkaProducer>();
-builder.Services.AddScoped<IProdServices, ProdServices>();
+builder.Services.AddScoped<IProductServices, ProductServices>();
+builder.Services.AddHostedService<ProductConsumer>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
